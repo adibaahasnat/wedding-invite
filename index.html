@@ -3,216 +3,228 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Novera & Fardin — Wedding Invitation</title>
-
+<title>Novera & Fardin — Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-
 <style>
-:root {
-  --bg: #fff;
-  --accent: #a64c5c;
-  --duration: 1.6s;
-  --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
-}
+  :root {
+    --bg: #fff;
+    --accent: #a64c5c;
+    --duration: 1.6s;
+    --panel-w: 320px;
+    --panel-h: 560px;
+    --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
+  }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  background: var(--bg);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Cormorant Garamond', serif;
-}
+  html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+  body {
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    font-family: 'Cormorant Garamond', serif;
+  }
 
-/* Stage centers everything */
-.stage {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
+  .stage {
+    width: min(1100px, 100%);
+    max-width: 92vw;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-/* ---------- INTRO ---------- */
-.intro {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: linear-gradient(180deg, #fff, #f9f7f7);
-  z-index: 2;
-  opacity: 1;
-  animation: introIn 1s ease both;
-}
+  /* ---------- Intro ---------- */
+  .intro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #fff, #faf7f7);
+    animation: intro-in 900ms ease both;
+    text-align: center;
+    padding: 0 1rem;
+  }
 
-.pre {
-  font-family: ui-sans-serif, system-ui;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #777;
-  font-size: 14px;
-  animation: slideUp 0.9s ease both;
-}
+  .intro-inner { text-align: center; }
 
-.names {
-  margin-top: 0.8rem;
-  font-family: "Snell Roundhand", "Great Vibes", cursive;
-  font-size: clamp(40px, 6vw, 70px);
-  font-weight: 400;
-  color: #2c2c2c;
-  letter-spacing: 0.02em;
-  line-height: 1.1;
-  animation: fadeUp 0.9s ease both 0.2s;
-}
+  .pre {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #777;
+    font-size: 14px;
+    animation: track-in 900ms ease both;
+  }
 
-.and {
-  font-family: ui-sans-serif, system-ui;
-  color: var(--accent);
-  font-weight: 700;
-  letter-spacing: 0.08em;
-}
+  .names {
+    margin-top: .8rem;
+    font-family: "Snell Roundhand", "Allura", "Great Vibes", cursive;
+    font-size: clamp(44px, 6vw, 70px);
+    font-weight: 400;
+    color: #2c2c2c;
+    letter-spacing: .02em;
+    line-height: 1.1;
+    animation: rise-in 900ms cubic-bezier(.2, .7, .2, 1) both;
+    animation-delay: 120ms;
+  }
 
-.divider {
-  width: 120px;
-  height: 1.5px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  margin: 0.9rem auto 0;
-  opacity: 0.8;
-  animation: grow 0.8s ease both 0.3s;
-}
+  .and {
+    font-family: ui-sans-serif, system-ui;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .08em;
+  }
 
-.sub {
-  margin-top: 0.9rem;
-  color: #666;
-  font-size: clamp(14px, 2.2vw, 18px);
-  letter-spacing: 0.02em;
-  animation: fadeIn 0.9s ease both 0.4s;
-}
+  .divider {
+    width: 120px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: .9rem auto 0;
+    opacity: .8;
+    animation: grow-in 800ms ease both 180ms;
+  }
 
-.intro.out {
-  animation: fadeOut 0.8s ease both;
-  z-index: 0;
-}
+  .sub {
+    margin-top: .9rem;
+    color: #666;
+    font-size: clamp(14px, 2.2vw, 18px);
+    letter-spacing: .02em;
+    animation: fade-in 900ms ease both 220ms;
+  }
 
-/* ---------- TRIFOLD ---------- */
-.trifold {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 1200px;
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 0.6s ease;
-}
+  .intro.out {
+    animation: intro-out 650ms ease both;
+    pointer-events: none;
+  }
 
-.trifold.on {
-  opacity: 1;
-}
+  /* ---------- Trifold ---------- */
+  .trifold {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    opacity: 0;
+  }
 
-.card {
-  position: relative;
-  aspect-ratio: 3 / 5;
-  max-width: min(95vw, 800px);
-  transform-style: preserve-3d;
-  filter: drop-shadow(var(--shadow));
-  transform: translateZ(0);
-}
+  .trifold.on { animation: tri-in 700ms ease both; }
 
-/* Each panel is a 1/3 slice of the image */
-.panel {
-  position: absolute;
-  top: 0;
-  width: 33.333%;
-  height: 100%;
-  background-image: var(--card);
-  background-size: 300% 100%;
-  background-repeat: no-repeat;
-  backface-visibility: hidden;
-  transform-origin: center center;
-}
+  .card {
+    position: relative;
+    width: calc(var(--panel-w) * 3);
+    height: var(--panel-h);
+    transform-style: preserve-3d;
+    filter: drop-shadow(var(--shadow));
+    transition: transform 0.4s ease;
+  }
 
-.panel.left {
-  left: 0;
-  background-position: 0% 50%;
-  transform-origin: 100% 50%;
-  transform: rotateY(90deg);
-}
-.panel.center {
-  left: 33.333%;
-  background-position: 50% 50%;
-}
-.panel.right {
-  left: 66.666%;
-  background-position: 100% 50%;
-  transform-origin: 0% 50%;
-  transform: rotateY(-90deg);
-}
+  .panel {
+    position: absolute;
+    top: 0;
+    width: var(--panel-w);
+    height: var(--panel-h);
+    backface-visibility: hidden;
+    background-image: var(--card);
+    background-size: 300% 100%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+  }
 
-.trifold.on .panel.left {
-  animation: openLeft var(--duration) ease forwards 0.6s;
-}
-.trifold.on .panel.right {
-  animation: openRight var(--duration) ease forwards 0.6s;
-}
+  .panel.center { left: var(--panel-w); background-position: 50% 50%; }
+  .panel.left {
+    left: 0;
+    transform-origin: 100% 50%;
+    background-position: 0% 50%;
+    transform: rotateY(90deg);
+  }
+  .panel.right {
+    left: calc(var(--panel-w) * 2);
+    transform-origin: 0% 50%;
+    background-position: 100% 50%;
+    transform: rotateY(-90deg);
+  }
 
-/* ---------- BUTTON ---------- */
-.replay {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  padding: 0.6rem 1rem;
-  background: #111;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  opacity: 0.9;
-  z-index: 3;
-}
-.replay:hover { opacity: 1; }
+  .trifold.on .panel.left {
+    animation: left-open var(--duration) ease forwards;
+    animation-delay: .6s;
+  }
+  .trifold.on .panel.right {
+    animation: right-open var(--duration) ease forwards;
+    animation-delay: .6s;
+  }
 
-/* ---------- ANIMATIONS ---------- */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes fadeOut { to { opacity: 0; transform: scale(0.98); } }
-@keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes fadeUp { from { transform: translateY(15px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes grow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
-@keyframes openLeft { to { transform: rotateY(0deg); } }
-@keyframes openRight { to { transform: rotateY(0deg); } }
-@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
+  /* ---------- Animations ---------- */
+  @keyframes intro-in   { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
+  @keyframes track-in   { from {letter-spacing:.35em; opacity:0;} to {letter-spacing:.12em; opacity:1;} }
+  @keyframes rise-in    { from {opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
+  @keyframes grow-in    { from {transform:scaleX(0); opacity:0;} to {transform:scaleX(1); opacity:1;} }
+  @keyframes fade-in    { from {opacity:0;} to {opacity:1;} }
+  @keyframes intro-out  { to {opacity:0; transform:scale(.98);} }
+  @keyframes tri-in     { from {opacity:0; transform:translateY(16px) scale(.97);} to {opacity:1; transform:none;} }
+  @keyframes left-open  { to {transform:rotateY(0deg);} }
+  @keyframes right-open { to {transform:rotateY(0deg);} }
 
-/* ---------- RESPONSIVE ---------- */
-@media (max-width: 900px) {
-  .card { max-width: 90vw; }
-}
-@media (max-width: 600px) {
-  .card { max-width: 96vw; }
-  .pre { font-size: 12px; }
-  .sub { font-size: 13px; }
-}
+  /* ---------- Replay ---------- */
+  .replay {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    padding: .55rem .85rem;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    opacity: .9;
+  }
+
+  .replay:hover { opacity: 1; }
+
+  /* ---------- Mobile Tweaks ---------- */
+  @media (max-width: 900px) {
+    :root {
+      --panel-w: 240px;
+      --panel-h: 420px;
+    }
+    .names {
+      font-size: clamp(38px, 8vw, 60px);
+      line-height: 1.1;
+    }
+    .divider { width: 80px; }
+    .sub { font-size: clamp(13px, 3vw, 17px); margin-top: 0.8rem; }
+    .card { transform: scale(0.95); }
+    .trifold { transform: scale(1); transform-origin: center; }
+  }
+
+  @media (max-width: 600px) {
+    :root {
+      --panel-w: 180px;
+      --panel-h: 320px;
+    }
+    .card { transform: scale(0.9); }
+    .trifold { transform: scale(0.95); }
+    .pre { font-size: 12px; letter-spacing: .1em; }
+    .sub { font-size: 13px; }
+    .intro { padding: 0 0.5rem; }
+  }
 </style>
 </head>
-
 <body>
   <div class="stage">
+    <!-- Intro -->
     <div class="intro" id="intro">
-      <div class="pre">You're invited to</div>
-      <div class="names">The wedding of<br>Novera <span class="and">&amp;</span> Fardin</div>
-      <div class="divider"></div>
-      <div class="sub">Join us for a blessed celebration of love, faith, and joy</div>
+      <div class="intro-inner">
+        <div class="pre">You're invited to</div>
+        <div class="names">The wedding of<br/>Novera <span class="and">&amp;</span> Fardin</div>
+        <div class="divider"></div>
+        <div class="sub">Join us for a blessed celebration of love, faith, and joy</div>
+      </div>
     </div>
 
+    <!-- Trifold -->
     <div class="trifold" id="trifold">
       <div class="card">
         <div class="panel left"></div>
@@ -225,24 +237,17 @@ html, body {
   </div>
 
 <script>
-const CARD = 'card_body.png';
-document.documentElement.style.setProperty('--card', `url('${CARD}')`);
+  const CARD = 'card_body.png';
+  document.documentElement.style.setProperty('--card', `url('${CARD}')`);
 
-const intro = document.getElementById('intro');
-const trifold = document.getElementById('trifold');
-const replay = document.getElementById('replay');
+  const intro   = document.getElementById('intro');
+  const trifold = document.getElementById('trifold');
+  const replay  = document.getElementById('replay');
 
-// sequence: intro fade → trifold appear → unfold
-setTimeout(() => {
-  intro.classList.add('out');
-}, 2200);
+  setTimeout(() => intro.classList.add('out'), 2200);
+  setTimeout(() => trifold.classList.add('on'), 2900);
 
-setTimeout(() => {
-  trifold.classList.add('on');
-}, 3000);
-
-replay.addEventListener('click', () => location.reload());
+  replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
-
