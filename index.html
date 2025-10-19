@@ -3,77 +3,106 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Novera & Fardin — Invitation</title>
+<title>Novera & Fardin — Wedding Invitation</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 :root {
-  --bg:#fff;
-  --accent:#a64c5c;
-  --duration:1.6s;
-  --panel-w:320px;
-  --panel-h:560px;
-  --shadow:0 30px 60px rgba(0,0,0,.18),0 10px 20px rgba(0,0,0,.08);
+  --bg: #fff;
+  --accent: #a64c5c;
+  --duration: 1.6s;
+  --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
 }
 
-/* --- base layout --- */
-html,body{height:100%;margin:0;padding:0;overflow-x:hidden;}
-body{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--bg);
-  font-family:'Cormorant Garamond',serif;
+/* Reset and layout */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--bg);
+  overflow: hidden;
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.stage{
-  width:min(1100px,100%);
-  max-width:92vw;
-  height:100dvh;
-  position:relative;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+/* Stage holds everything */
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* --- intro --- */
-.intro{
-  position:absolute;inset:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:0 1rem;
-  background:linear-gradient(180deg,#fff,#faf7f7);
-  animation:intro-in .9s ease both;
+/* ========== INTRO SECTION ========== */
+.intro {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg, #fff, #f9f7f7);
+  z-index: 2;
+  animation: fadeIn 0.8s ease both;
 }
-.pre{
-  font-family:ui-sans-serif,system-ui;
-  letter-spacing:.12em;text-transform:uppercase;
-  color:#777;font-size:14px;
-  animation:track-in .9s ease both;
-}
-.names{
-  margin-top:.8rem;
-  font-family:"Snell Roundhand","Allura","Great Vibes",cursive;
-  font-size:clamp(44px,6vw,70px);
-  font-weight:400;color:#2c2c2c;
-  letter-spacing:.02em;line-height:1.1;
-  animation:rise-in .9s cubic-bezier(.2,.7,.2,1) both 120ms;
-}
-.and{font-family:ui-sans-serif; color:var(--accent); font-weight:700; letter-spacing:.08em;}
-.divider{
-  width:120px;height:1.5px;
-  background:linear-gradient(90deg,transparent,var(--accent),transparent);
-  margin:.9rem auto 0;opacity:.8;
-  animation:grow-in .8s ease both 180ms;
-}
-.sub{
-  margin-top:.9rem;color:#666;
-  font-size:clamp(14px,2.2vw,18px);
-  letter-spacing:.02em;
-  animation:fade-in .9s ease both 220ms;
-}
-.intro.out{animation:intro-out .65s ease both;pointer-events:none;}
 
-/* --- trifold --- */
+.pre {
+  font-family: ui-sans-serif, system-ui;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #777;
+  font-size: 14px;
+  animation: slideUp 0.9s ease both;
+}
+
+.names {
+  margin-top: 0.8rem;
+  font-family: "Snell Roundhand", "Great Vibes", cursive;
+  font-size: clamp(40px, 6vw, 72px);
+  font-weight: 400;
+  color: #2c2c2c;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  animation: fadeUp 0.9s ease both 0.2s;
+}
+
+.and {
+  font-family: ui-sans-serif, system-ui;
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.divider {
+  width: 120px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 0.9rem auto 0;
+  opacity: 0.8;
+  animation: grow 0.8s ease both 0.3s;
+}
+
+.sub {
+  margin-top: 0.9rem;
+  color: #666;
+  font-size: clamp(14px, 2.2vw, 18px);
+  letter-spacing: 0.02em;
+  animation: fadeIn 0.9s ease both 0.4s;
+}
+
+.intro.out {
+  animation: fadeOut 0.8s ease both;
+}
+
+/* ========== CARD SECTION ========== */
 .trifold {
   position: absolute;
   inset: 0;
@@ -82,116 +111,133 @@ body{
   justify-content: center;
   perspective: 1200px;
   opacity: 0;
-  transform-origin: center center;
-  overflow: hidden;
+  z-index: 1;
 }
 
-.trifold.on{
-  animation:tri-in .7s ease both, zoom-out 4s ease forwards;
+.trifold.on {
+  animation: appear 0.8s ease both;
 }
+
 .card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: calc(var(--panel-w) * 3);
-  height: var(--panel-h);
-  transform: translate(-50%, -50%);
+  position: relative;
+  aspect-ratio: 3 / 5; /* natural invitation proportions */
+  max-width: min(95vw, 800px);
+  height: auto;
   transform-style: preserve-3d;
   filter: drop-shadow(var(--shadow));
   transition: transform 0.4s ease;
 }
 
-
-.panel{
-  position:absolute;top:0;width:var(--panel-w);height:var(--panel-h);
-  backface-visibility:hidden;
-  background-image:var(--card);
-  background-size:300% 100%;
-  background-repeat:no-repeat;background-color:#fff;
+/* Panels use the same image but sliced virtually */
+.panel {
+  position: absolute;
+  top: 0;
+  width: 33.333%;
+  height: 100%;
+  background-image: var(--card);
+  background-size: 300% 100%;
+  background-repeat: no-repeat;
+  backface-visibility: hidden;
 }
-.panel.center{left:var(--panel-w);background-position:50% 50%;}
-.panel.left{left:0;transform-origin:100% 50%;background-position:0% 50%;transform:rotateY(90deg);}
-.panel.right{left:calc(var(--panel-w)*2);transform-origin:0% 50%;background-position:100% 50%;transform:rotateY(-90deg);}
-.trifold.on .panel.left{animation:left-open var(--duration) ease forwards .6s;}
-.trifold.on .panel.right{animation:right-open var(--duration) ease forwards .6s;}
 
-/* --- keyframes --- */
-@keyframes intro-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes track-in{from{letter-spacing:.35em;opacity:0}to{letter-spacing:.12em;opacity:1}}
-@keyframes rise-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes grow-in{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
-@keyframes fade-in{from{opacity:0}to{opacity:1}}
-@keyframes intro-out{to{opacity:0;transform:scale(.98)}}
-@keyframes tri-in{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
-@keyframes left-open{to{transform:rotateY(0deg)}}
-@keyframes right-open{to{transform:rotateY(0deg)}}
-/* cinematic zoom-out */
-@keyframes zoom-out{0%{transform:scale(1.05)}100%{transform:scale(0.9)}}
-
-/* --- replay --- */
-.replay{
-  position:absolute;right:16px;bottom:16px;
-  padding:.55rem .85rem;border-radius:10px;
-  background:#111;color:#fff;border:none;cursor:pointer;opacity:.9;
+.panel.left {
+  left: 0;
+  background-position: 0% 50%;
+  transform-origin: 100% 50%;
+  transform: rotateY(90deg);
 }
-.replay:hover{opacity:1}
 
-/* --- responsive scaling --- */
+.panel.center {
+  left: 33.333%;
+  background-position: 50% 50%;
+}
+
+.panel.right {
+  left: 66.666%;
+  background-position: 100% 50%;
+  transform-origin: 0% 50%;
+  transform: rotateY(-90deg);
+}
+
+.trifold.on .panel.left {
+  animation: openLeft var(--duration) ease forwards 0.8s;
+}
+.trifold.on .panel.right {
+  animation: openRight var(--duration) ease forwards 0.8s;
+}
+
+/* ========== BUTTON ========== */
+.replay {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.6rem 1rem;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.9;
+  z-index: 3;
+}
+.replay:hover { opacity: 1; }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeOut { to { opacity: 0; transform: scale(0.98); } }
+@keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fadeUp { from { transform: translateY(15px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes grow { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+@keyframes appear { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes openLeft { to { transform: rotateY(0deg); } }
+@keyframes openRight { to { transform: rotateY(0deg); } }
+
+/* Responsive: scales perfectly for every device */
 @media (max-width: 900px) {
-  :root { --panel-w: 240px; --panel-h: 420px; }
-  .card {
-    transform: translateX(calc(-1 * var(--panel-w) / 2)) scale(0.78); /* centered + smaller */
-  }
-  .trifold { transform: scale(0.78); }
-  .names { font-size: clamp(38px, 8vw, 60px); }
+  .card { max-width: 90vw; }
 }
-
 @media (max-width: 600px) {
-  :root { --panel-w: 180px; --panel-h: 320px; }
-  .card {
-    transform: translateX(calc(-1 * var(--panel-w) / 2)) scale(0.7);
-  }
-  .trifold { transform: scale(0.7); }
-  .pre { font-size: 12px; letter-spacing: .1em; }
+  .card { max-width: 96vw; }
+  .pre { font-size: 12px; }
   .sub { font-size: 13px; }
-  .intro { padding: 0 .5rem; }
 }
 </style>
 </head>
+
 <body>
-<div class="stage">
-  <div class="intro" id="intro">
-    <div class="pre">You're invited to</div>
-    <div class="names">The wedding of<br/>Novera <span class="and">&amp;</span> Fardin</div>
-    <div class="divider"></div>
-    <div class="sub">Join us for a blessed celebration of love, faith, and joy</div>
-  </div>
-
-  <div class="trifold" id="trifold">
-    <div class="card">
-      <div class="panel left"></div>
-      <div class="panel center"></div>
-      <div class="panel right"></div>
+  <div class="stage">
+    <div class="intro" id="intro">
+      <div class="pre">You're invited to</div>
+      <div class="names">The wedding of<br>Novera <span class="and">&amp;</span> Fardin</div>
+      <div class="divider"></div>
+      <div class="sub">Join us for a blessed celebration of love, faith, and joy</div>
     </div>
-  </div>
 
-  <button class="replay" id="replay">Replay</button>
-</div>
+    <div class="trifold" id="trifold">
+      <div class="card">
+        <div class="panel left"></div>
+        <div class="panel center"></div>
+        <div class="panel right"></div>
+      </div>
+    </div>
+
+    <button class="replay" id="replay">Replay</button>
+  </div>
 
 <script>
-const CARD='card_body.png';
-document.documentElement.style.setProperty('--card',`url('${CARD}')`);
+  const CARD = 'card_body.png';
+  document.documentElement.style.setProperty('--card', `url('${CARD}')`);
 
-const intro=document.getElementById('intro');
-const trifold=document.getElementById('trifold');
-const replay=document.getElementById('replay');
+  const intro = document.getElementById('intro');
+  const trifold = document.getElementById('trifold');
+  const replay = document.getElementById('replay');
 
-setTimeout(()=>intro.classList.add('out'),2200);
-setTimeout(()=>trifold.classList.add('on'),2900);
+  // Fade intro → show card
+  setTimeout(() => { intro.classList.add('out'); }, 2200);
+  setTimeout(() => { trifold.classList.add('on'); }, 3000);
 
-replay.addEventListener('click',()=>location.reload());
+  replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
-
 
