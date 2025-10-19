@@ -83,14 +83,16 @@ body{
 .trifold.on{
   animation:tri-in .7s ease both, zoom-out 4s ease forwards;
 }
-.card{
-  position:relative;
-  width:calc(var(--panel-w)*3);
-  height:var(--panel-h);
-  transform-style:preserve-3d;
-  filter:drop-shadow(var(--shadow));
-  transition:transform .4s ease;
+.card {
+  position: relative;
+  width: calc(var(--panel-w) * 3);
+  height: var(--panel-h);
+  transform-style: preserve-3d;
+  filter: drop-shadow(var(--shadow));
+  transition: transform 0.4s ease;
+  transform: translateX(calc(-1 * var(--panel-w) / 2)); /* NEW: centers 3 panels perfectly */
 }
+
 .panel{
   position:absolute;top:0;width:var(--panel-w);height:var(--panel-h);
   backface-visibility:hidden;
@@ -126,19 +128,24 @@ body{
 .replay:hover{opacity:1}
 
 /* --- responsive scaling --- */
-@media (max-width:900px){
-  :root{--panel-w:240px;--panel-h:420px;}
-  .card{transform:scale(.8);}
-  .trifold{transform:scale(.8);}
-  .names{font-size:clamp(38px,8vw,60px);}
+@media (max-width: 900px) {
+  :root { --panel-w: 240px; --panel-h: 420px; }
+  .card {
+    transform: translateX(calc(-1 * var(--panel-w) / 2)) scale(0.78); /* centered + smaller */
+  }
+  .trifold { transform: scale(0.78); }
+  .names { font-size: clamp(38px, 8vw, 60px); }
 }
-@media (max-width:600px){
-  :root{--panel-w:180px;--panel-h:320px;}
-  .card{transform:scale(.7);}
-  .trifold{transform:scale(.7);}
-  .pre{font-size:12px;letter-spacing:.1em;}
-  .sub{font-size:13px;}
-  .intro{padding:0 .5rem;}
+
+@media (max-width: 600px) {
+  :root { --panel-w: 180px; --panel-h: 320px; }
+  .card {
+    transform: translateX(calc(-1 * var(--panel-w) / 2)) scale(0.7);
+  }
+  .trifold { transform: scale(0.7); }
+  .pre { font-size: 12px; letter-spacing: .1em; }
+  .sub { font-size: 13px; }
+  .intro { padding: 0 .5rem; }
 }
 </style>
 </head>
