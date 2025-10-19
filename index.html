@@ -6,121 +6,239 @@
 <title>Novera & Fardin — Invitation</title>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#fff;             /* page background */
-    --accent:#a64c5c;      /* intro accent color (soft rose/wine) */
-    --duration:1.6s;       /* base card timing */
-    --panel-w:320px;       /* per-panel width of trifold */
-    --panel-h:560px;       /* panel height */
-    --shadow:0 30px 60px rgba(0,0,0,.18),0 10px 20px rgba(0,0,0,.08);
+  :root {
+    --bg: #fff;             /* page background */
+    --accent: #a64c5c;      /* intro accent color (soft rose/wine) */
+    --duration: 1.6s;       /* base card timing */
+    --panel-w: 320px;       /* per-panel width of trifold */
+    --panel-h: 560px;       /* panel height */
+    --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
   }
-  html,body{height:100%}
 
-  body{
-  margin:0;
-  display:grid;
-  place-items:center;
-  background:var(--bg);
-  font-family: 'Cormorant Garamond', serif;
-}
+  html, body { height: 100%; }
 
-.names{
-  margin-top:.8rem;
-  font-family: "Snell Roundhand", "Allura", "Great Vibes", cursive;
-  font-size: clamp(44px,6vw,70px);
-  font-weight:400;
-  color:#2c2c2c;
-  letter-spacing:.02em;
-  line-height:1.1;
-  animation: rise-in 900ms cubic-bezier(.2,.7,.2,1) both;
-  animation-delay:120ms;
-}
+  body {
+    margin: 0;
+    display: grid;
+    place-items: center;
+    background: var(--bg);
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+  }
 
-
-  .stage{ width:min(1100px,92vw); aspect-ratio:16/9; position:relative; overflow:hidden; }
+  .stage {
+    width: min(1100px, 92vw);
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+  }
 
   /* ---------- Intro ---------- */
-  .intro{
-    position:absolute; inset:0; display:grid; place-items:center; background:linear-gradient(180deg,#fff,#faf7f7);
-    animation:intro-in 900ms ease both;           /* fade in */
+  .intro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #fff, #faf7f7);
+    animation: intro-in 900ms ease both;
+    text-align: center;
+    padding: 0 1rem;
   }
-  .intro-inner{ text-align:center; transform: translateY(6px); }
-  .pre{
+
+  .intro-inner {
+    text-align: center;
+  }
+
+  .pre {
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-    letter-spacing:.12em; text-transform:uppercase; color:#777; font-size:14px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #777;
+    font-size: 14px;
     animation: track-in 900ms ease both;
   }
-  .names{
-    margin-top:.8rem; font-size: clamp(28px,5vw,48px); line-height:1.15; font-weight:600;
-    color:#333; animation: rise-in 900ms cubic-bezier(.2,.7,.2,1) both; animation-delay:120ms;
+
+  .names {
+    margin-top: .8rem;
+    font-family: "Snell Roundhand", "Allura", "Great Vibes", cursive;
+    font-size: clamp(44px, 6vw, 70px);
+    font-weight: 400;
+    color: #2c2c2c;
+    letter-spacing: .02em;
+    line-height: 1.1;
+    animation: rise-in 900ms cubic-bezier(.2, .7, .2, 1) both;
+    animation-delay: 120ms;
   }
-  .and{
-    font-family: ui-sans-serif, system-ui; color:var(--accent); font-weight:700; letter-spacing:.08em;
+
+  .and {
+    font-family: ui-sans-serif, system-ui;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: .08em;
   }
-  .divider{
-    width:120px; height:1.5px; background:linear-gradient(90deg,transparent, var(--accent), transparent);
-    margin:.9rem auto 0; opacity:.8; animation: grow-in 800ms ease both 180ms;
+
+  .divider {
+    width: 120px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: .9rem auto 0;
+    opacity: .8;
+    animation: grow-in 800ms ease both 180ms;
   }
-  .sub{
-    margin-top:.9rem; color:#666; font-size:clamp(14px,2.2vw,18px);
-    letter-spacing:.02em; animation: fade-in 900ms ease both 220ms;
+
+  .sub {
+    margin-top: .9rem;
+    color: #666;
+    font-size: clamp(14px, 2.2vw, 18px);
+    letter-spacing: .02em;
+    animation: fade-in 900ms ease both 220ms;
   }
+
   /* fade the whole intro away to reveal card */
-  .intro.out{
-    animation: intro-out 650ms ease both;         /* fade/scale out */
-    pointer-events:none;
+  .intro.out {
+    animation: intro-out 650ms ease both;
+    pointer-events: none;
   }
 
   /* ---------- Trifold Card ---------- */
-  .trifold{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-    perspective:1200px; opacity:0;                /* hidden until intro leaves */
+  .trifold {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+    opacity: 0;
   }
-  .trifold.on{ animation: tri-in 700ms ease both; }
-  .card{
-    position:relative; width:calc(var(--panel-w)*3); height:var(--panel-h);
-    transform-style:preserve-3d; filter:drop-shadow(var(--shadow));
+
+  .trifold.on {
+    animation: tri-in 700ms ease both;
   }
-  .panel{
-    position:absolute; top:0; width:var(--panel-w); height:var(--panel-h);
-    backface-visibility:hidden; background-image: var(--card);
-    background-size:300% 100%; background-repeat:no-repeat; background-color:#fff;
+
+  .card {
+    position: relative;
+    width: calc(var(--panel-w) * 3);
+    height: var(--panel-h);
+    transform-style: preserve-3d;
+    filter: drop-shadow(var(--shadow));
+    transition: transform 0.4s ease;
   }
-  .panel.center{ left:var(--panel-w); background-position:50% 50%; }
-  .panel.left{
-    left:0; transform-origin:100% 50%; background-position:0% 50%;
+
+  .panel {
+    position: absolute;
+    top: 0;
+    width: var(--panel-w);
+    height: var(--panel-h);
+    backface-visibility: hidden;
+    background-image: var(--card);
+    background-size: 300% 100%;
+    background-repeat: no-repeat;
+    background-color: #fff;
+  }
+
+  .panel.center { left: var(--panel-w); background-position: 50% 50%; }
+  .panel.left {
+    left: 0;
+    transform-origin: 100% 50%;
+    background-position: 0% 50%;
     transform: rotateY(90deg);
   }
-  .panel.right{
-    left: calc(var(--panel-w)*2); transform-origin:0% 50%; background-position:100% 50%;
+  .panel.right {
+    left: calc(var(--panel-w) * 2);
+    transform-origin: 0% 50%;
+    background-position: 100% 50%;
     transform: rotateY(-90deg);
   }
 
   /* left/right unfold only after tri-in */
-  .trifold.on .panel.left { animation:left-open var(--duration) ease forwards; animation-delay:.6s; }
-  .trifold.on .panel.right{ animation:right-open var(--duration) ease forwards; animation-delay:.6s; }
+  .trifold.on .panel.left {
+    animation: left-open var(--duration) ease forwards;
+    animation-delay: .6s;
+  }
+
+  .trifold.on .panel.right {
+    animation: right-open var(--duration) ease forwards;
+    animation-delay: .6s;
+  }
 
   /* ---------- Keyframes ---------- */
-  @keyframes intro-in   { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none} }
-  @keyframes track-in   { from{letter-spacing:.35em; opacity:0} to{letter-spacing:.12em; opacity:1} }
-  @keyframes rise-in    { from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
-  @keyframes grow-in    { from{transform:scaleX(0); opacity:0} to{transform:scaleX(1); opacity:1} }
-  @keyframes fade-in    { from{opacity:0} to{opacity:1} }
-  @keyframes intro-out  { to{ opacity:0; transform: scale(.98)} }
-  @keyframes tri-in     { from{opacity:0; transform:translateY(16px) scale(.97)} to{opacity:1; transform:none} }
-  @keyframes left-open  { to{ transform: rotateY(0deg);} }
-  @keyframes right-open { to{ transform: rotateY(0deg);} }
+  @keyframes intro-in   { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
+  @keyframes track-in   { from {letter-spacing:.35em; opacity:0;} to {letter-spacing:.12em; opacity:1;} }
+  @keyframes rise-in    { from {opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
+  @keyframes grow-in    { from {transform:scaleX(0); opacity:0;} to {transform:scaleX(1); opacity:1;} }
+  @keyframes fade-in    { from {opacity:0;} to {opacity:1;} }
+  @keyframes intro-out  { to {opacity:0; transform:scale(.98);} }
+  @keyframes tri-in     { from {opacity:0; transform:translateY(16px) scale(.97);} to {opacity:1; transform:none;} }
+  @keyframes left-open  { to {transform:rotateY(0deg);} }
+  @keyframes right-open { to {transform:rotateY(0deg);} }
 
-  /* Replay */
-  .replay{
-    position:absolute; right:16px; bottom:16px; padding:.55rem .85rem; border-radius:10px;
-    background:#111; color:#fff; border:none; cursor:pointer; opacity:.9;
+  /* ---------- Replay ---------- */
+  .replay {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    padding: .55rem .85rem;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    opacity: .9;
   }
-  .replay:hover{ opacity:1 }
 
-  /* Mobile tweak */
-  @media (max-width: 900px){
-    :root{ --panel-w:240px; --panel-h:420px; }
+  .replay:hover { opacity: 1; }
+
+  /* ---------- Mobile Tweaks ---------- */
+  @media (max-width: 900px) {
+    :root {
+      --panel-w: 240px;
+      --panel-h: 420px;
+    }
+
+    .names {
+      font-size: clamp(38px, 8vw, 60px);
+      line-height: 1.1;
+    }
+
+    .divider { width: 80px; }
+
+    .sub {
+      font-size: clamp(13px, 3vw, 17px);
+      margin-top: 0.8rem;
+    }
+
+    .card {
+      transform: scale(0.85);
+    }
+
+    .trifold {
+      transform: scale(0.9);
+      transform-origin: center;
+    }
+  }
+
+  /* ---------- Extra small screens (phones) ---------- */
+  @media (max-width: 600px) {
+    :root {
+      --panel-w: 180px;
+      --panel-h: 320px;
+    }
+
+    .card {
+      transform: scale(0.75);
+    }
+
+    .pre { font-size: 12px; letter-spacing: .1em; }
+    .sub { font-size: 13px; }
+
+    .intro {
+      padding: 0 0.5rem;
+    }
+
+    .trifold {
+      transform: scale(0.8);
+    }
   }
 </style>
 </head>
@@ -160,13 +278,11 @@
   const trifold = document.getElementById('trifold');
   const replay  = document.getElementById('replay');
 
-  // after ~2.2s, fade intro out
   setTimeout(() => { intro.classList.add('out'); }, 2200);
-  // after intro is gone, bring trifold, then panels will unfold via CSS
   setTimeout(() => { trifold.classList.add('on'); }, 2900);
 
-  // replay simply reloads
   replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
+
