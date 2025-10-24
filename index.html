@@ -14,50 +14,48 @@
   }
 
   html, body {
-    height: 100%;
     margin: 0;
-    font-family: 'Cormorant Garamond', serif;
+    padding: 0;
+    height: 100%;
     background: var(--bg);
+    font-family: 'Cormorant Garamond', serif;
     overflow-x: hidden;
   }
 
   .stage {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4vh 0;
-  }
-
-  /* Intro */
-  .intro {
-    position: absolute;
-    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(180deg, #fff, #faf7f7);
+    min-height: 100vh;
+    width: 100%;
+    padding: 2vh 0;
+  }
+
+  /* INTRO SECTION */
+  .intro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    padding: 0 1rem;
+    flex-direction: column;
+    background: linear-gradient(180deg, #fff, #faf7f7);
     animation: intro-in 900ms ease both;
   }
 
   .pre {
-    letter-spacing: .12em;
-    text-transform: uppercase;
     color: #777;
     font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 
   .names {
     margin-top: .8rem;
     font-family: "Great Vibes", cursive;
-    font-size: clamp(38px, 6vw, 70px);
+    font-size: clamp(40px, 6vw, 70px);
     color: #2c2c2c;
     line-height: 1.1;
   }
@@ -71,15 +69,12 @@
     width: 120px;
     height: 1.5px;
     background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    margin: .9rem auto 0;
-    opacity: .8;
+    margin: .9rem auto;
   }
 
   .sub {
-    margin-top: .9rem;
     color: #666;
     font-size: clamp(14px, 2.2vw, 18px);
-    letter-spacing: .02em;
   }
 
   .intro.out {
@@ -87,12 +82,13 @@
     pointer-events: none;
   }
 
-  /* Trifold */
+  /* TRIFOLD */
   .trifold {
+    opacity: 0;
     display: flex;
     justify-content: center;
+    align-items: center;
     perspective: 1200px;
-    opacity: 0;
   }
 
   .trifold.on {
@@ -101,7 +97,7 @@
 
   .card {
     position: relative;
-    width: 90vw;
+    width: min(95vw, 960px);
     max-width: 960px;
     aspect-ratio: 3 / 2;
     transform-style: preserve-3d;
@@ -120,8 +116,8 @@
   }
 
   .panel.center { left: 33.333%; background-position: 50% 50%; }
-  .panel.left { left: 0; transform-origin: 100% 50%; background-position: 0% 50%; transform: rotateY(90deg); }
-  .panel.right { left: 66.666%; transform-origin: 0% 50%; background-position: 100% 50%; transform: rotateY(-90deg); }
+  .panel.left   { left: 0;        background-position: 0% 50%;   transform-origin: 100% 50%; transform: rotateY(90deg); }
+  .panel.right  { left: 66.666%;  background-position: 100% 50%; transform-origin: 0% 50%;   transform: rotateY(-90deg); }
 
   .trifold.on .panel.left {
     animation: left-open var(--duration) ease forwards;
@@ -133,11 +129,11 @@
     animation-delay: .6s;
   }
 
-  /* Replay */
+  /* REPLAY BUTTON */
   .replay {
     position: fixed;
-    right: 16px;
     bottom: 16px;
+    right: 16px;
     padding: .55rem .85rem;
     border-radius: 10px;
     background: #111;
@@ -150,34 +146,30 @@
 
   .replay:hover { opacity: 1; }
 
-  /* Keyframes */
+  /* ANIMATIONS */
   @keyframes intro-in   { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
   @keyframes intro-out  { to {opacity:0; transform:scale(.98);} }
   @keyframes tri-in     { from {opacity:0; transform:translateY(16px) scale(.97);} to {opacity:1; transform:none;} }
   @keyframes left-open  { to {transform:rotateY(0deg);} }
   @keyframes right-open { to {transform:rotateY(0deg);} }
 
-  /* MOBILE OPTIMIZATION */
+  /* MOBILE FIXES */
   @media (max-width: 768px) {
     .card {
-      width: 100vw;
-      max-width: none;
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 3 / 2.1;
+      width: 96vw;
       transform: scale(0.95);
     }
-
-    .replay { font-size: 14px; padding: 0.4rem 0.7rem; }
-    .sub { font-size: 14px; }
   }
 
   @media (max-width: 480px) {
     .card {
-      transform: scale(0.9);
-      aspect-ratio: 3 / 5;
+      aspect-ratio: 3 / 2.2;
+      transform: scale(1);
     }
 
-    .names { font-size: clamp(30px, 8vw, 52px); }
-    .sub { font-size: 13px; }
+    .names { font-size: clamp(34px, 8vw, 52px); }
+    .sub { font-size: 14px; }
   }
 </style>
 </head>
@@ -206,17 +198,18 @@
   </div>
 
 <script>
-  const CARD = 'card_body.png';
+  const CARD = 'card_body.png'; // ensure this is in same folder
   document.documentElement.style.setProperty('--card', `url('${CARD}')`);
 
   const intro = document.getElementById('intro');
   const trifold = document.getElementById('trifold');
   const replay = document.getElementById('replay');
 
-  setTimeout(() => { intro.classList.add('out'); }, 2200);
-  setTimeout(() => { trifold.classList.add('on'); }, 2900);
+  setTimeout(() => intro.classList.add('out'), 2200);
+  setTimeout(() => trifold.classList.add('on'), 2900);
   replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
+
 
