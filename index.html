@@ -7,31 +7,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fff;
-    --accent: #a64c5c;
-    --duration: 1.6s;
-    --panel-w: 320px;
-    --panel-h: 560px;
+    --bg: #fff;             /* page background */
+    --accent: #a64c5c;      /* intro accent color (soft rose/wine) */
+    --duration: 1.6s;       /* base card timing */
+    --panel-w: 320px;       /* per-panel width of trifold */
+    --panel-h: 560px;       /* panel height */
     --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
   }
 
-  html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+  html, body { height: 100%; }
+
   body {
+    margin: 0;
     display: grid;
     place-items: center;
     background: var(--bg);
     font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
   }
 
   .stage {
-    width: min(1100px, 100%);
-    max-width: 92vw;
-    height: 100dvh;
+    width: min(1100px, 92vw);
+    aspect-ratio: 16/9;
     position: relative;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   /* ---------- Intro ---------- */
@@ -47,7 +46,9 @@
     padding: 0 1rem;
   }
 
-  .intro-inner { text-align: center; }
+  .intro-inner {
+    text-align: center;
+  }
 
   .pre {
     font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
@@ -94,12 +95,13 @@
     animation: fade-in 900ms ease both 220ms;
   }
 
+  /* fade the whole intro away to reveal card */
   .intro.out {
     animation: intro-out 650ms ease both;
     pointer-events: none;
   }
 
-  /* ---------- Trifold ---------- */
+  /* ---------- Trifold Card ---------- */
   .trifold {
     position: absolute;
     inset: 0;
@@ -110,7 +112,9 @@
     opacity: 0;
   }
 
-  .trifold.on { animation: tri-in 700ms ease both; }
+  .trifold.on {
+    animation: tri-in 700ms ease both;
+  }
 
   .card {
     position: relative;
@@ -147,16 +151,18 @@
     transform: rotateY(-90deg);
   }
 
+  /* left/right unfold only after tri-in */
   .trifold.on .panel.left {
     animation: left-open var(--duration) ease forwards;
     animation-delay: .6s;
   }
+
   .trifold.on .panel.right {
     animation: right-open var(--duration) ease forwards;
     animation-delay: .6s;
   }
 
-  /* ---------- Animations ---------- */
+  /* ---------- Keyframes ---------- */
   @keyframes intro-in   { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:none;} }
   @keyframes track-in   { from {letter-spacing:.35em; opacity:0;} to {letter-spacing:.12em; opacity:1;} }
   @keyframes rise-in    { from {opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
@@ -189,26 +195,50 @@
       --panel-w: 240px;
       --panel-h: 420px;
     }
+
     .names {
       font-size: clamp(38px, 8vw, 60px);
       line-height: 1.1;
     }
+
     .divider { width: 80px; }
-    .sub { font-size: clamp(13px, 3vw, 17px); margin-top: 0.8rem; }
-    .card { transform: scale(0.95); }
-    .trifold { transform: scale(1); transform-origin: center; }
+
+    .sub {
+      font-size: clamp(13px, 3vw, 17px);
+      margin-top: 0.8rem;
+    }
+
+    .card {
+      transform: scale(0.85);
+    }
+
+    .trifold {
+      transform: scale(0.9);
+      transform-origin: center;
+    }
   }
 
+  /* ---------- Extra small screens (phones) ---------- */
   @media (max-width: 600px) {
     :root {
       --panel-w: 180px;
       --panel-h: 320px;
     }
-    .card { transform: scale(0.9); }
-    .trifold { transform: scale(0.95); }
+
+    .card {
+      transform: scale(0.75);
+    }
+
     .pre { font-size: 12px; letter-spacing: .1em; }
     .sub { font-size: 13px; }
-    .intro { padding: 0 0.5rem; }
+
+    .intro {
+      padding: 0 0.5rem;
+    }
+
+    .trifold {
+      transform: scale(0.8);
+    }
   }
 </style>
 </head>
@@ -237,18 +267,21 @@
   </div>
 
 <script>
-  const CARD = 'card_body.png';
+  /* ==== SET YOUR IMAGE FILE HERE ==== */
+  const CARD = 'card_body.png'; // your flat trifold image
+
+  // inject the card image for virtual slicing
   document.documentElement.style.setProperty('--card', `url('${CARD}')`);
 
+  // timeline: intro shows -> fade out -> trifold in -> unfold
   const intro   = document.getElementById('intro');
   const trifold = document.getElementById('trifold');
   const replay  = document.getElementById('replay');
 
-  setTimeout(() => intro.classList.add('out'), 2200);
-  setTimeout(() => trifold.classList.add('on'), 2900);
+  setTimeout(() => { intro.classList.add('out'); }, 2200);
+  setTimeout(() => { trifold.classList.add('on'); }, 2900);
 
   replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
-
