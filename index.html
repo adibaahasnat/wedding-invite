@@ -10,29 +10,28 @@
     --bg: #fff;
     --accent: #a64c5c;
     --duration: 1.6s;
+    --panel-w: 320px;
+    --panel-h: 560px;
     --shadow: 0 30px 60px rgba(0,0,0,.18), 0 10px 20px rgba(0,0,0,.08);
   }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
+  html, body { height: 100%; margin: 0; padding: 0; overflow-x: hidden; }
+  body {
+    display: grid;
+    place-items: center;
     background: var(--bg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: 'Cormorant Garamond', serif;
   }
 
   .stage {
-    width: 100%;
-    height: 100%;
+    width: min(1100px, 100%);
+    max-width: 92vw;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
   }
 
   /* ---------- Intro ---------- */
@@ -46,13 +45,12 @@
     animation: intro-in 900ms ease both;
     text-align: center;
     padding: 0 1rem;
-    z-index: 2;
   }
 
   .intro-inner { text-align: center; }
 
   .pre {
-    font-family: ui-sans-serif, system-ui;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
     letter-spacing: .12em;
     text-transform: uppercase;
     color: #777;
@@ -62,7 +60,7 @@
 
   .names {
     margin-top: .8rem;
-    font-family: "Snell Roundhand", "Great Vibes", cursive;
+    font-family: "Snell Roundhand", "Allura", "Great Vibes", cursive;
     font-size: clamp(44px, 6vw, 70px);
     font-weight: 400;
     color: #2c2c2c;
@@ -110,29 +108,24 @@
     justify-content: center;
     perspective: 1200px;
     opacity: 0;
-    z-index: 1;
   }
 
-  .trifold.on {
-    animation: tri-in 700ms ease both;
-  }
+  .trifold.on { animation: tri-in 700ms ease both; }
 
   .card {
     position: relative;
-    aspect-ratio: 3 / 5;
-    width: min(90vw, 800px);
-    height: auto;
+    width: calc(var(--panel-w) * 3);
+    height: var(--panel-h);
     transform-style: preserve-3d;
     filter: drop-shadow(var(--shadow));
     transition: transform 0.4s ease;
-    transform-origin: center center;
   }
 
   .panel {
     position: absolute;
     top: 0;
-    width: 33.333%;
-    height: 100%;
+    width: var(--panel-w);
+    height: var(--panel-h);
     backface-visibility: hidden;
     background-image: var(--card);
     background-size: 300% 100%;
@@ -140,7 +133,7 @@
     background-color: #fff;
   }
 
-  .panel.center { left: 33.333%; background-position: 50% 50%; }
+  .panel.center { left: var(--panel-w); background-position: 50% 50%; }
   .panel.left {
     left: 0;
     transform-origin: 100% 50%;
@@ -148,7 +141,7 @@
     transform: rotateY(90deg);
   }
   .panel.right {
-    left: 66.666%;
+    left: calc(var(--panel-w) * 2);
     transform-origin: 0% 50%;
     background-position: 100% 50%;
     transform: rotateY(-90deg);
@@ -186,24 +179,42 @@
     border: none;
     cursor: pointer;
     opacity: .9;
-    z-index: 3;
   }
+
   .replay:hover { opacity: 1; }
 
-  /* ---------- Responsive Tweaks ---------- */
+  /* ---------- Mobile Tweaks ---------- */
   @media (max-width: 900px) {
-    .card { width: 95vw; }
+    :root {
+      --panel-w: 240px;
+      --panel-h: 420px;
+    }
+    .names {
+      font-size: clamp(38px, 8vw, 60px);
+      line-height: 1.1;
+    }
+    .divider { width: 80px; }
+    .sub { font-size: clamp(13px, 3vw, 17px); margin-top: 0.8rem; }
+    .card { transform: scale(0.95); }
+    .trifold { transform: scale(1); transform-origin: center; }
   }
 
   @media (max-width: 600px) {
-    .card { width: 100vw; transform: scale(0.95); }
+    :root {
+      --panel-w: 180px;
+      --panel-h: 320px;
+    }
+    .card { transform: scale(0.9); }
+    .trifold { transform: scale(0.95); }
     .pre { font-size: 12px; letter-spacing: .1em; }
     .sub { font-size: 13px; }
+    .intro { padding: 0 0.5rem; }
   }
 </style>
 </head>
 <body>
   <div class="stage">
+    <!-- Intro -->
     <div class="intro" id="intro">
       <div class="intro-inner">
         <div class="pre">You're invited to</div>
@@ -213,6 +224,7 @@
       </div>
     </div>
 
+    <!-- Trifold -->
     <div class="trifold" id="trifold">
       <div class="card">
         <div class="panel left"></div>
@@ -232,11 +244,11 @@
   const trifold = document.getElementById('trifold');
   const replay  = document.getElementById('replay');
 
-  // Sequence: intro fades → trifold appears → unfolds
   setTimeout(() => intro.classList.add('out'), 2200);
-  setTimeout(() => trifold.classList.add('on'), 3000);
+  setTimeout(() => trifold.classList.add('on'), 2900);
 
   replay.addEventListener('click', () => location.reload());
 </script>
 </body>
 </html>
+
